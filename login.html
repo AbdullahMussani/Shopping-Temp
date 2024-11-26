@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Signup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #ffffff;
+      width: 400px;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #D80621;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #80ef80;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: #D80621;
+      outline: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #80ef80;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #D80621;
+    }
+
+    .form-toggle {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .form-toggle a {
+      color: #D80621;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .form-toggle a:hover {
+      text-decoration: underline;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: -10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="login-container">
+    <!-- Login Form -->
+    <h2>Login</h2>
+    <form id="login-form">
+      <div class="input-group">
+        <input type="email" id="login-email" placeholder="Email" required>
+        <span class="error" id="login-email-error"></span>
+      </div>
+      <div class="input-group">
+        <input type="password" id="login-password" placeholder="Password" required>
+        <span class="error" id="login-password-error"></span>
+      </div>
+      <button type="submit" class="btn">Login</button>
+    </form>
+    <div class="form-toggle">
+      <p>Don't have an account? <a href="javascript:void(0);" onclick="toggleForm()">Sign Up</a></p>
+    </div>
+  </div>
+
+  <div class="container" id="signup-container" style="display: none;">
+    <!-- Signup Form -->
+    <h2>Sign Up</h2>
+    <form id="signup-form">
+      <div class="input-group">
+        <input type="text" id="signup-name" placeholder="Full Name" required>
+        <span class="error" id="signup-name-error"></span>
+      </div>
+      <div class="input-group">
+        <input type="email" id="signup-email" placeholder="Email" required>
+        <span class="error" id="signup-email-error"></span>
+      </div>
+      <div class="input-group">
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <span class="error" id="signup-password-error"></span>
+      </div>
+      <div class="input-group">
+        <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required>
+        <span class="error" id="signup-confirm-password-error"></span>
+      </div>
+      <button type="submit" class="btn">Sign Up</button>
+    </form>
+    <div class="form-toggle">
+      <p>Already have an account? <a href="javascript:void(0);" onclick="toggleForm()">Login</a></p>
+    </div>
+  </div>
+
+  <script>
+    function toggleForm() {
+      const loginContainer = document.getElementById('login-container');
+      const signupContainer = document.getElementById('signup-container');
+      loginContainer.style.display = (loginContainer.style.display === 'none') ? 'block' : 'none';
+      signupContainer.style.display = (signupContainer.style.display === 'none') ? 'block' : 'none';
+    }
+
+    // Login Form Validation
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      let email = document.getElementById('login-email').value;
+      let password = document.getElementById('login-password').value;
+      let valid = true;
+
+      if (!email || !/\S+@\S+\.\S+/.test(email)) {
+        document.getElementById('login-email-error').textContent = 'Please enter a valid email.';
+        valid = false;
+      } else {
+        document.getElementById('login-email-error').textContent = '';
+      }
+
+      if (!password) {
+        document.getElementById('login-password-error').textContent = 'Please enter your password.';
+        valid = false;
+      } else {
+        document.getElementById('login-password-error').textContent = '';
+      }
+
+      if (valid) {
+        // Submit the form (for now just alert)
+        alert('Login Successful');
+      }
+    });
+
+    // Signup Form Validation
+    document.getElementById('signup-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      let name = document.getElementById('signup-name').value;
+      let email = document.getElementById('signup-email').value;
+      let password = document.getElementById('signup-password').value;
+      let confirmPassword = document.getElementById('signup-confirm-password').value;
+      let valid = true;
+
+      if (!name) {
+        document.getElementById('signup-name-error').textContent = 'Please enter your name.';
+        valid = false;
+      } else {
+        document.getElementById('signup-name-error').textContent = '';
+      }
+
+      if (!email || !/\S+@\S+\.\S+/.test(email)) {
+        document.getElementById('signup-email-error').textContent = 'Please enter a valid email.';
+        valid = false;
+      } else {
+        document.getElementById('signup-email-error').textContent = '';
+      }
+
+      if (!password) {
+        document.getElementById('signup-password-error').textContent = 'Please enter a password.';
+        valid = false;
+      } else {
+        document.getElementById('signup-password-error').textContent = '';
+      }
+
+      if (password !== confirmPassword) {
+        document.getElementById('signup-confirm-password-error').textContent = 'Passwords do not match.';
+        valid = false;
+      } else {
+        document.getElementById('signup-confirm-password-error').textContent = '';
+      }
+
+      if (valid) {
+        // Submit the form (for now just alert)
+        alert('Sign Up Successful');
+      }
+    });
+  </script>
+</body>
+
+</html>
